@@ -2,6 +2,19 @@
 
 Quick Start Database and Middleware using Docker Compose on Development.
 
+### Usage
+
+1. Start Services
+
+``` shell
+ $> docker-compose up
+```
+2. Start the Specified Services
+
+```shell
+  $> docker-compose up redis postgresql
+```
+
 ### Services
 
  * Redis
