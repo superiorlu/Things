@@ -6,23 +6,25 @@ Quick Start Database and Middleware using Docker Compose on Development.
 
 1. Start Services
 
-``` shell
+```shell
  $> docker-compose up
 ```
+
 2. Start the Specified Services
 
 ```shell
-  $> docker-compose up redis postgresql
+ $> docker-compose up redis postgresql
 ```
 
 ### Services
 
- * Redis
- * PostgreSQL
- * RabbitMQ
- * MongoDB
+- Redis
+- PostgreSQL
+- RabbitMQ
+- MongoDB
+- MySQL
 
 ### Resources
 
-  1. [Docker Destop](https://docs.docker.com/desktop/)
-  2. [Docker Compose](https://docs.docker.com/compose/)
+1. [Docker Destop](https://docs.docker.com/desktop/)
+2. [Docker Compose](https://docs.docker.com/compose/)

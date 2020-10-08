@@ -1,19 +1,19 @@
-version: "3.7"
+version: '3.7'
 services:
   redis:
     image: redis
-    container_name: "my_redis"
+    container_name: 'my_redis'
     command: redis-server
     ports:
-      - "6379:6379"
+      - '6379:6379'
     volumes:
       - ./redis_data:/data
 
   postgresql:
-    image: "postgres:latest"
-    container_name: "my_postgres"
+    image: 'postgres:latest'
+    container_name: 'my_postgres'
     ports:
-      - "5433:5432"
+      - '5433:5432'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
@@ -21,10 +21,10 @@ services:
       - ./pg_data:/var/lib/postgresql/data
 
   mongodb:
-    image: "mongo"
-    container_name: "my_mongodb"
+    image: 'mongo'
+    container_name: 'my_mongodb'
     ports:
-      - "27017:27017"
+      - '27017:27017'
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: 123456
@@ -36,12 +36,27 @@ services:
   rabbitmq:
     image: rabbitmq:management-alpine
     container_name: my_rabbitmq
-    environment:
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=123
-    restart: always
     ports:
-      - "15672:15672"
-      - "5672:5672"
+      - '15672:15672'
+      - '5672:5672'
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: 123
     volumes:
       - ./rabbitmq_data:/var/lib/rabbitmq/
+
+  mysql:
+    image: 'mysql:latest'
+    container_name: 'my_mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+      - --explicit_defaults_for_timestamp=true
+      - --lower_case_table_names=1
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql_data:/var/lib/mysql
