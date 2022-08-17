@@ -94,3 +94,60 @@ services:
       - ./kafka_data:/kafka
     depends_on:
       - zookeeper
+
+  redisjson:
+    image: redislabs/rejson:latest
+    container_name: 'my_redisjson'
+    # command: redis-server --loadmodule ./target/release/librejson.dylib
+    ports:
+      - '6379:6379'
+    volumes:
+      - ./redisjson_data:/data
+
+  kafka_center:
+    image: 'xaecbd/kafka-center:2.3.0'
+    container_name: 'my_kafka_center'
+    ports:
+      - 9000:8080
+    volumes:
+      - ./configs/kafka_center.properties:/opt/app/kafka-center/config/application.properties
+
+  xxl_job_admin:
+    image: xuxueli/xxl-job-admin:2.3.0
+    container_name: 'my_xxl_job_admin'
+    environment:
+      PARAMS: '--spring.datasource.url=jdbc:mysql://localhost:3306/xxl_job?Unicode=true&characterEncoding=UTF-8&autoReconnect=true --spring.datasource.username=root --spring.datasource.password=123456'
+    ports:
+      - '8000:8080'
+    volumes:
+      - ./xxl_job_data/applogs:/data/applogs
+
+  # elasticsearch web admin
+  cerebro:
+    image: 'lmenezes/cerebro:latest'
+    container_name: 'my_cerebro'
+    ports:
+      - 9090:9000
+
+  proxy_pool:
+    image: 'jhao104/proxy_pool:2.4.0'
+    container_name: 'my_proxy_pool'
+    environment:
+      DB_CONN: 'redis://redis:6379/0'
+    ports:
+      - 5010:5010
+    depends_on:
+      - redis
+
+  nacos:
+    image: 'nacos/nacos-server:2.0.2'
+    container_name: 'my_nacos'
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+    volumes:
+      - ./nacos_data/:/home/nacos/logs
+      - ./configs/nacos.properties:/home/nacos/init.d/custom.properties
+    ports:
+      - '8848:8848'
+      - '9848:9848'

@@ -23,6 +23,14 @@ Quick Start Database and Middleware using Docker Compose on Development.
 - RabbitMQ
 - MongoDB
 - MySQL
+- Metabase
+- Zookeeper
+- Kafka
+- Kafka_center
+- Redisjson
+- Cerebro
+- ProxyPool
+- Nacos
 
 ### Resources
 
