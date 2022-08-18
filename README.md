@@ -1,4 +1,4 @@
-## Thing
+## Things
 
 Quick Start Database and Middleware using Docker Compose on Development.
 
